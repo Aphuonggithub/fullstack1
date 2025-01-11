@@ -1,28 +1,28 @@
-import express from "express"
-import bodyParser from "body-parser"
-import viewEngine from "./config/viewEngine"
-import initWebRouters from "./route/web"
-import connectDB from "./config/connectDB"
+import express from "express";
+import bodyParser from "body-parser";
+import viewEngine from "./config/viewEngine";
+import initWebRouters from "./route/web";
+import connectDB from "./config/connectDB";
+import cors from "cors";
 
+require("dotenv").config();
 
-
-require('dotenv').config()
-
-
-let app = express()
+let app = express();
+app.use(cors({credentials:true, origin: true }));
 
 // config app
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-viewEngine(app)
-initWebRouters(app)
+viewEngine(app);
+initWebRouters(app);
 
-connectDB()
+connectDB();
 
-let port =process.env.PORT || 8081
-app.listen(port, () =>{
-    console.log(`Backend NodeJs is running on the port : http://localhost:${port}`);
-    
-})
+let port = process.env.PORT || 8081;
+app.listen(port, () => {
+  console.log(
+    `Backend NodeJs is running on the port : http://localhost:${port}`
+  );
+});
